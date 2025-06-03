@@ -35,3 +35,4 @@ export const testDatabaseConnection = async (): Promise<void> => {
     console.error('❌ Unable to connect to the database:', error);
   }
 };
+export default sequelize;
