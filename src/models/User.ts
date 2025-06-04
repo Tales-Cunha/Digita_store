@@ -3,7 +3,7 @@ import sequelizeInstance from '../../config/database';
 
 //Define the attibutes for the User Model
 
-interface UserAttribures {
+interface UserAttributes {
   id?: string; //UUID
   email: string;
   passwordHash: string;
@@ -11,7 +11,7 @@ interface UserAttribures {
   //createdAt and updatedAt are handled by Sequelize timestamp
 }
 
-class User extends Model<UserAttribures> implements UserAttribures {
+class User extends Model<UserAttributes> implements UserAttributes {
   public id!: string;
   public email!: string;
   public passwordHash!: string;
