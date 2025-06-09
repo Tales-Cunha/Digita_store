@@ -14,8 +14,8 @@ export const hashPassword = async (
   plaintextPassword: string
 ): Promise<string> => {
   try {
-    const hashPassword = await bcrypt.hash(plaintextPassword, SALT_ROUNDS);
-    return hashPassword;
+    const hashedPassword = await bcrypt.hash(plaintextPassword, SALT_ROUNDS);
+    return hashedPassword;
   } catch (error) {
     console.error('Error hashing password', error);
     throw new Error('password hashing failed');
