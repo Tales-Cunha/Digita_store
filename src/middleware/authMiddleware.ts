@@ -59,3 +59,34 @@ export const authenticateJwt = (
     }
   )(req, res, next);
 };
+/**
+ * Role-Based Access Control (RBAC) middleware.
+ * Checks if the authenticated user has one of the allowed roles.
+ * This middleware should be used AFTER the authenticateJwt middleware.
+ *
+ * @param allowedRoles An array of role strings that are allowed to access the route.
+ * (e.g., ['admin'] or ['admin', 'manager'])
+ */
+
+export const checkRole = (allowedRoles: Array<'shopper' | 'admin'>) => {
+  return (
+    req: AuthenticateRequest,
+    res: Response,
+    next: NextFunction
+  ): void => {
+    if (!req.user || !req.user.role) {
+      res
+        .status(401)
+        .json({ message: 'Unauthorized: No user role identified.' });
+      return;
+    }
+    const userRole = req.user.role;
+    if (allowedRoles.includes(userRole)) {
+      next();
+    } else {
+      res.status(403).json({
+        message: `Forbidden: User role '${userRole}' is not allowed to access this resource.`,
+      });
+    }
+  };
+};
